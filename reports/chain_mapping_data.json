@@ -1,0 +1,228 @@
+{
+  "length_8": [
+    {
+      "contract": "HC7894",
+      "order": 1,
+      "latitude": -36.8190899185592,
+      "longitude": 144.238221862622,
+      "site_name": "Calder Hwy, Big Hill Job 53",
+      "start_date": "2023-01-12T13:00:00Z",
+      "savings_km": 111.4
+    },
+    {
+      "contract": "HC7956",
+      "order": 2,
+      "latitude": -36.7584312122315,
+      "longitude": 144.285834222612,
+      "site_name": "Bendigo",
+      "start_date": "2023-01-18T13:00:00Z",
+      "savings_km": 115.8
+    },
+    {
+      "contract": "HC8061",
+      "order": 3,
+      "latitude": -36.7723124761054,
+      "longitude": 144.240303236121,
+      "site_name": "Kronk Street, Golden Square Job 726 & 72",
+      "start_date": "2023-01-22T13:00:00Z",
+      "savings_km": 113.3
+    },
+    {
+      "contract": "HC8214",
+      "order": 4,
+      "latitude": -36.8038059,
+      "longitude": 144.2453661,
+      "site_name": "Job 1015 Railway Street, Kangaroo Flat",
+      "start_date": "2023-02-02T13:00:00Z",
+      "savings_km": 108.1
+    },
+    {
+      "contract": "HC8329",
+      "order": 5,
+      "latitude": -36.8501232052565,
+      "longitude": 144.228635067255,
+      "site_name": "Calder Hwy, Ravenswood 51 & 52",
+      "start_date": "2023-02-10T13:00:00Z",
+      "savings_km": 112.4
+    },
+    {
+      "contract": "HC8470",
+      "order": 6,
+      "latitude": -36.8295888,
+      "longitude": 144.2379876,
+      "site_name": "Calder Freeway, Harcour Jobs 31&32",
+      "start_date": "2023-02-16T13:00:00Z",
+      "savings_km": 107.7
+    },
+    {
+      "contract": "HC8033",
+      "order": 7,
+      "latitude": -36.7284627,
+      "longitude": 144.3171646,
+      "site_name": "East Bendigo ",
+      "start_date": "2023-03-02T13:00:00Z",
+      "savings_km": 120.6
+    },
+    {
+      "contract": "HC8702",
+      "order": 8,
+      "latitude": -35.0391254219302,
+      "longitude": 143.322365230203,
+      "site_name": "TOOLEYBUC Bridge ",
+      "start_date": "2023-03-13T13:00:00Z",
+      "savings_km": 0
+    }
+  ],
+  "length_4_gippsland": [
+    {
+      "contract": "HC7847",
+      "order": 1,
+      "latitude": -38.0258531,
+      "longitude": 145.4964566,
+      "site_name": "Pakenham",
+      "start_date": "2023-01-09T13:00:00Z",
+      "savings_km": 51.6
+    },
+    {
+      "contract": "HC7854",
+      "order": 2,
+      "latitude": -38.146493309992,
+      "longitude": 146.353930906072,
+      "site_name": "Murray Rd, Yallourn North",
+      "start_date": "2023-01-10T13:00:00Z",
+      "savings_km": 125.6
+    },
+    {
+      "contract": "HC7939",
+      "order": 3,
+      "latitude": -38.1987561285852,
+      "longitude": 146.536055663737,
+      "site_name": "Traralgon",
+      "start_date": "2023-01-19T13:00:00Z",
+      "savings_km": 125.6
+    },
+    {
+      "contract": "HC8685",
+      "order": 4,
+      "latitude": -38.3827372367572,
+      "longitude": 146.470123146182,
+      "site_name": "Jeealang Road",
+      "start_date": "2023-03-05T13:00:00Z",
+      "savings_km": 0
+    }
+  ],
+  "length_4_northern": [
+    {
+      "contract": "HC9386",
+      "order": 1,
+      "latitude": -37.6940676,
+      "longitude": 145.0056749,
+      "site_name": "Keon Parade",
+      "start_date": "2023-04-13T14:00:00Z",
+      "savings_km": 0.9
+    },
+    {
+      "contract": "HC9500",
+      "order": 2,
+      "latitude": -37.7233226688784,
+      "longitude": 145.068677059252,
+      "site_name": "Gresswell Forest, Bundoora",
+      "start_date": "2023-04-20T14:00:00Z",
+      "savings_km": 6.3
+    },
+    {
+      "contract": "HC9540",
+      "order": 3,
+      "latitude": -37.7583007793874,
+      "longitude": 145.0691724848,
+      "site_name": "F05-4229 Rosanna Rd, Heidelberg",
+      "start_date": "2023-04-25T14:00:00Z",
+      "savings_km": 8.7
+    },
+    {
+      "contract": "HC9830",
+      "order": 4,
+      "latitude": -37.8091716,
+      "longitude": 145.2580731,
+      "site_name": "Eastfield Rd, Croydon",
+      "start_date": "2023-05-09T14:00:00Z",
+      "savings_km": 0
+    }
+  ],
+  "length_4_inner": [
+    {
+      "contract": "HC12945",
+      "order": 1,
+      "latitude": -37.7138721741352,
+      "longitude": 145.047235111131,
+      "site_name": "Watsonia/ Bundoora",
+      "start_date": "2023-11-12T13:00:00Z",
+      "savings_km": 3.3
+    },
+    {
+      "contract": "HC12899",
+      "order": 2,
+      "latitude": -37.8298498,
+      "longitude": 145.0066885,
+      "site_name": "Head Office",
+      "start_date": "2023-11-19T13:00:00Z",
+      "savings_km": 9.2
+    },
+    {
+      "contract": "HC13339",
+      "order": 3,
+      "latitude": -37.7971423091367,
+      "longitude": 144.995403857902,
+      "site_name": "Smith St, Fitzroy",
+      "start_date": "2023-12-03T13:00:00Z",
+      "savings_km": 1.6
+    },
+    {
+      "contract": "HC13417",
+      "order": 4,
+      "latitude": -37.7483509456813,
+      "longitude": 145.031405485724,
+      "site_name": "408 Bell Street, Preston",
+      "start_date": "2023-12-07T13:00:00Z",
+      "savings_km": 0
+    }
+  ],
+  "length_4_eastern": [
+    {
+      "contract": "HC13002",
+      "order": 1,
+      "latitude": -37.75866,
+      "longitude": 145.07167,
+      "site_name": "Burgundy St & Jika St",
+      "start_date": "2023-11-16T13:00:00Z",
+      "savings_km": 9.6
+    },
+    {
+      "contract": "HC13160",
+      "order": 2,
+      "latitude": -37.773999264164,
+      "longitude": 145.126929267725,
+      "site_name": "Templestowe Lower",
+      "start_date": "2023-12-22T13:00:00Z",
+      "savings_km": 5.8
+    },
+    {
+      "contract": "HC13612",
+      "order": 3,
+      "latitude": -37.7602449618633,
+      "longitude": 145.074119148911,
+      "site_name": "37-69 Bell St, Ivanhoe",
+      "start_date": "2024-01-04T13:00:00Z",
+      "savings_km": 9.1
+    },
+    {
+      "contract": "HC9908",
+      "order": 4,
+      "latitude": -37.957625665465,
+      "longitude": 145.054244042695,
+      "site_name": "Southland Shopping Centre",
+      "start_date": "2024-01-22T13:00:00Z",
+      "savings_km": 0
+    }
+  ]
+}

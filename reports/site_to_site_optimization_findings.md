@@ -21,6 +21,13 @@ Analysis of VMS equipment deployment in Victoria reveals significant cost-saving
 - **Annual cost savings**: $231,564 (fuel + driver costs)
 - **Equipment allowance**: 10-day window for site-to-site moves
 
+### Multiple Equipment Options
+
+- **729 contracts** have multiple equipment choices (86% of analyzed contracts)
+- **9.3 average options** per contract
+- **Maximum 32 options** available for single contract
+- **Equipment selection**: Prioritized by cost savings, not proximity
+
 ### Top Savings Opportunities
 
 | From Contract | To Contract | Days Gap | Site-to-Site | Depot Distance | Savings  | % Saved |
@@ -35,6 +42,8 @@ Analysis of VMS equipment deployment in Victoria reveals significant cost-saving
 - **Equipment utilization**: Faster deployment to new sites
 - **Environmental benefit**: Reduced carbon footprint
 - **Operational efficiency**: Less depot handling required
+- **Scheduling flexibility**: 86% of contracts have multiple equipment options
+- **Risk mitigation**: Backup choices if primary equipment unavailable
 
 ## Methodology & Assumptions
 
@@ -57,6 +66,8 @@ Analysis of VMS equipment deployment in Victoria reveals significant cost-saving
 - **Time window**: Equipment available 10 days post-contract
 - **Geographic filter**: Victoria boundaries only
 - **Equipment type**: VMS units only
+- **Equipment selection logic**: Ranked by cost savings (not proximity)
+- **Multiple options**: Average 9.3 choices per contract
 
 ## Implementation Recommendations
 
@@ -64,6 +75,19 @@ Analysis of VMS equipment deployment in Victoria reveals significant cost-saving
 2. **Monitor 0-1 day gaps** for immediate transfers
 3. **Track equipment status** for optimization opportunities
 4. **Route planning integration** with dispatch systems
+
+## Contract Chain Analysis
+
+### Chain Length Distribution
+- **Length 8**: 1 chain (longest equipment flow)
+- **Length 4**: 4 chains (regional operations)
+- **Length 3**: 7 chains (short sequences)
+- **Length 2**: 13 chains (direct transfers)
+
+### Chain Impact
+- **779 contracts** participate in chains (93% of Victoria contracts)
+- **22,085 km total savings** from chained transfers
+- **28.4 km average savings** per chained contract
 
 ## Operational Benefits
 
