@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPM Hire - Route Optimization Engine</title>
+
+    <!-- React & Babel for JSX in Browser -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Mapbox GL JS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    
+    <!-- Google Font for RPM Hire Branding -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+    <!-- Professional Styles for RPM Hire -->
+    <style>
+        :root {
+            --rpm-blue: #00529B;
+            --rpm-yellow: #FFC400;
+            --bg-light: #f4f7fa;
+            --card-bg: #ffffff;
+            --text-dark: #333333;
+            --text-light: #777777;
+            --border-color: #e0e0e0;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow: hidden;
+        }
+        #root {
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
+        }
+        .app-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .app-header img {
+            height: 40px;
+        }
+        .app-header h1 {
+            font-size: 20px;
+            margin: 0 0 0 20px;
+            font-weight: 700;
+            color: var(--rpm-blue);
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+        }
+        .map-container {
+            flex-grow: 1;
+            position: relative;
+        }
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        .info-panel {
+            width: 380px;
+            background-color: var(--bg-light);
+            padding: 25px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            overflow-y: auto;
+            border-left: 1px solid var(--border-color);
+        }
+        .info-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .info-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .info-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+        .action-button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--rpm-blue);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: background-color 0.2s;
+        }
+        .action-button:hover {
+            background-color: #003e75;
+        }
+        .route-plan-card ol {
+            padding-left: 0;
+            margin: 0;
+            list-style: none;
+            counter-reset: route-counter;
+        }
+        .route-plan-card li {
+            font-size: 14px;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 35px;
+        }
+        .route-plan-card li::before {
+            counter-increment: route-counter;
+            content: counter(route-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background-color: var(--rpm-yellow);
+            color: var(--text-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+        }
+        .route-plan-card .summary {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--rpm-blue);
+        }
+        /* Mapbox Marker Customization */
+        .mapboxgl-marker.depot { background-color: #333; border: 2px solid white; border-radius: 50%; width: 15px; height: 15px; cursor: pointer; }
+        .mapboxgl-marker.pickup { background-color: var(--rpm-blue); border: 2px solid white; border-radius: 50%; width: 15px; height: 15px; cursor: pointer; }
+        .mapboxgl-marker.dropoff { background-color: var(--rpm-yellow); border: 2px solid white; border-radius: 50%; width: 15px; height: 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // --- MOCK DATA FOR MULTI-STOP ROUTING ---
+        const depotLocation = { id: 'depot', name: "RPM Hire Depot", coords: [145.15, -37.75] };
+        const tasks = [
+            { id: 1, name: "Project Alpha", pickup: { id: 'p1', name: "Pickup: Message Board", coords: [144.96, -37.81] }, dropoff: { id: 'd1', name: "Dropoff: Docklands Site", coords: [145.05, -37.83] } },
+            { id: 2, name: "Project Bravo", pickup: { id: 'p2', name: "Pickup: Lighting Tower", coords: [144.98, -37.79] }, dropoff: { id: 'd2', name: "Dropoff: Richmond Site", coords: [144.93, -37.815] } },
+            { id: 3, name: "Project Charlie", pickup: { id: 'p3', name: "Pickup: Concrete Barriers", coords: [145.01, -37.85] }, dropoff: { id: 'd3', name: "Dropoff: South Yarra Site", coords: [144.95, -37.80] } },
+        ];
+        
+        // --- CORE AI: NEAREST NEIGHBOR ALGORITHM FOR TSP ---
+        const findOptimalRoute = (startNode, allNodes) => {
+            if (allNodes.length === 0) return { path: [startNode], totalDistance: 0 };
+            let unvisited = new Set(allNodes.map(n => n.id));
+            let path = [startNode];
+            let currentNode = startNode;
+            let totalDistance = 0;
+            while (unvisited.size > 0) {
+                let nearestNeighbor = null;
+                let minDistance = Infinity;
+                allNodes.forEach(neighbor => {
+                    if (unvisited.has(neighbor.id)) {
+                        const distance = calculateDistance(currentNode.coords, neighbor.coords);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            nearestNeighbor = neighbor;
+                        }
+                    }
+                });
+                if (nearestNeighbor) {
+                    totalDistance += minDistance;
+                    path.push(nearestNeighbor);
+                    currentNode = nearestNeighbor;
+                    unvisited.delete(nearestNeighbor.id);
+                } else { break; }
+            }
+            return { path, totalDistance };
+        };
+
+        // --- UTILITY FUNCTIONS ---
+        const calculateDistance = (coords1, coords2) => {
+            const R = 6371; // Earth radius in km
+            const dLat = (coords2[1] - coords1[1]) * Math.PI / 180;
+            const dLon = (coords2[0] - coords1[0]) * Math.PI / 180;
+            const a = 0.5 - Math.cos(dLat)/2 + Math.cos(coords1[1] * Math.PI / 180) * Math.cos(coords2[1] * Math.PI / 180) * (1 - Math.cos(dLon)) / 2;
+            return R * 2 * Math.asin(Math.sqrt(a));
+        };
+
+        // --- REACT COMPONENTS ---
+        const RoutePlanCard = ({ routePlan }) => {
+            if (!routePlan) return null;
+            return (
+                <div className="info-card route-plan-card">
+                    <h3><i className="fa-solid fa-route"></i> Optimized Route Plan</h3>
+                    <ol>
+                        {routePlan.path.map((stop, index) => (
+                            <li key={index}><strong>{stop.name}</strong></li>
+                        ))}
+                    </ol>
+                    <div className="summary">
+                        <i className="fa-solid fa-truck-fast"></i> Total Optimized Distance: {routePlan.totalDistance.toFixed(2)} km
+                    </div>
+                </div>
+            );
+        };
+        
+        const App = () => {
+            const mapContainer = useRef(null);
+            const map = useRef(null);
+            const [optimalRoute, setOptimalRoute] = useState(null);
+
+            useEffect(() => {
+                if (map.current) return;
+                
+                // FINAL STEP: YOUR PERSONAL TOKEN IS INSERTED HERE
+                mapboxgl.accessToken = 'pk.eyJ1IjoibW9oaXQ3ODYiLCJhIjoiY21mdGxxZ2ZjMGphbDJscTJ4bms2ZXRlNCJ9.OgPOwecXDIqEW2MHhJK7Hw'; 
+                
+                map.current = new mapboxgl.Map({
+                    container: mapContainer.current,
+                    style: 'mapbox://styles/mapbox/light-v10',
+                    center: [144.9631, -37.8136],
+                    zoom: 11
+                });
+
+                map.current.on('load', () => {
+                    const depotEl = document.createElement('div');
+                    depotEl.className = 'mapboxgl-marker depot';
+                    new mapboxgl.Marker(depotEl).setLngLat(depotLocation.coords).setPopup(new mapboxgl.Popup().setText('Depot')).addTo(map.current);
+
+                    tasks.forEach(task => {
+                        const pickupEl = document.createElement('div');
+                        pickupEl.className = 'mapboxgl-marker pickup';
+                        new mapboxgl.Marker(pickupEl).setLngLat(task.pickup.coords).setPopup(new mapboxgl.Popup().setText(task.pickup.name)).addTo(map.current);
+                        
+                        const dropoffEl = document.createElement('div');
+                        dropoffEl.className = 'mapboxgl-marker dropoff';
+                        new mapboxgl.Marker(dropoffEl).setLngLat(task.dropoff.coords).setPopup(new mapboxgl.Popup().setText(task.dropoff.name)).addTo(map.current);
+                    });
+                });
+            }, []);
+            
+            const drawRoute = (path) => {
+                const geojson = { type: 'Feature', geometry: { type: 'LineString', coordinates: path.map(p => p.coords) } };
+                if (map.current.getSource('route')) {
+                    map.current.getSource('route').setData(geojson);
+                } else {
+                    map.current.addSource('route', { type: 'geojson', data: geojson });
+                    map.current.addLayer({
+                        id: 'route',
+                        type: 'line',
+                        source: 'route',
+                        layout: { 'line-join': 'round', 'line-cap': 'round' },
+                        paint: { 'line-color': 'var(--rpm-blue)', 'line-width': 5, 'line-opacity': 0.8 }
+                    });
+                }
+            };
+
+            const handleOptimizeRoute = () => {
+                const allNodes = tasks.flatMap(t => [t.pickup, t.dropoff]);
+                const routePlan = findOptimalRoute(depotLocation, allNodes);
+                setOptimalRoute(routePlan);
+                drawRoute(routePlan.path);
+            };
+
+            return (
+                <React.Fragment>
+                    <div className="app-header">
+                        <img src="https://www.rpmhire.com.au/wp-content/uploads/2022/02/rpm-hire-logo-blue.svg" alt="RPM Hire Logo" />
+                        <h1>Route Optimization Engine</h1>
+                    </div>
+                    <div className="main-content">
+                        <div className="map-container" ref={mapContainer}></div>
+                        <div className="info-panel">
+                            <div className="info-card">
+                                <h3>Daily Task Optimizer</h3>
+                                <p>Plan the most efficient, multi-stop route for a single vehicle to complete all of today's pickups and dropoffs, minimizing travel distance and fuel costs.</p>
+                                <button onClick={handleOptimizeRoute} className="action-button">
+                                    <i className="fa-solid fa-calculator"></i> Calculate Optimal Route
+                                </button>
+                            </div>
+                            <RoutePlanCard routePlan={optimalRoute} />
+                        </div>
+                    </div>
+                </React.Fragment>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
